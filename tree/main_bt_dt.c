@@ -1,10 +1,9 @@
 /***********************************************************************/
 /**
     LeetCode 
-    Purpose: #94, binary tree inorder traversal
+    Purpose: Binary tree data structure
     @author: Frank Nguen
     @date:   0x-05-2023
-    https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
 */
 /***********************************************************************/
 #include <stdio.h>
@@ -21,13 +20,13 @@
  *
 */
 struct TreeNode {
-    //
+    // value stores in Tree node
     int val;
     
-    //
+    // pointer to the left child Tree node
     struct TreeNode *left;
     
-    //
+    // pointer to the right child Tree node
     struct TreeNode *right;
 };
 
@@ -67,13 +66,17 @@ void tb_insertNode();
 void printTree(struct TreeNode* root, int level);
 void tb_printTree();
 
-/**
- * inorderTraversalHelper: -
+/** Leetcode #94
+ *
+ * inorderTraversal: -
  * @value
  *  
  * return:
  *
- * to help save value on recursive ... 
+ * There are several ways to traverse a binary tree, including in-order, 
+ * pre-order, and post-order traversal. Here's an example of in-order 
+ * traversal, which visits the left subtree, then the current node, 
+ * then the right subtree.
  * 
  */
 void inorderTraversalHelper(struct TreeNode* root, int* result, int* idx);
@@ -89,12 +92,14 @@ void tb_inorderTraversal();
  * There are several ways to traverse a binary tree, including in-order, 
  * pre-order, and post-order traversal. Here's an example of in-order 
  * traversal, which visits the left subtree, then the current node, 
- * then the right subtree:
+ * then the right subtree.
+ * 
  */
 void inorderTraversal_1(struct TreeNode* root);
 void tb_inorderTraversal_1();
 
-/**
+/** Leetcode #100
+ *
  * isSameTree: -
  * @value
  *  
@@ -106,7 +111,8 @@ void tb_inorderTraversal_1();
 bool isSameTree(struct TreeNode* p, struct TreeNode* q);
 void tb_isSameTree();
 
-/**
+/** Leetcode #101
+ *
  * isSymmetric: -
  * @value
  *  
@@ -119,7 +125,8 @@ bool isSymmetricHelper(struct TreeNode* left, struct TreeNode* right);
 bool isSymmetric(struct TreeNode* root);
 void tb_isSymmetric();
 
-/**
+/** Leetcode #104
+ *
  * maxDepth: -
  * @value
  *  
@@ -131,7 +138,8 @@ void tb_isSymmetric();
 int maxDepth(struct TreeNode* root);
 void tb_maxDepth();
 
-/**
+/** Leetcode #108
+ *
  * sortedArrayToBST: -
  * @value
  *  
@@ -144,7 +152,8 @@ struct TreeNode* sortedArrayToBSTHelper(int* nums, int start, int end);
 struct TreeNode* sortedArrayToBST(int* nums, int numsSize);
 void tb_sortedArrayToBST();
 
-/**
+/** Leetcode #112
+ *
  * hasPathSum: -
  * @value
  *  
@@ -156,7 +165,8 @@ void tb_sortedArrayToBST();
 bool hasPathSum(struct TreeNode* root, int targetSum);
 void tb_hasPathSum();
 
-/**
+/** Leetcode #111
+ * 
  * minDepth: -
  * @value
  *  
@@ -168,7 +178,8 @@ void tb_hasPathSum();
 int minDepth(struct TreeNode* root);
 void tb_minDepth();
 
-/**
+/** Leetcode #110
+ *
  * isBalanced: -
  * @value
  *  
