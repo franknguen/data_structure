@@ -10,141 +10,96 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <limits.h>
+#include <string.h>
 
 /***********************************************************************/
 // funs declerations
 /***********************************************************************/
 
 /**
- * Definition for a list node.
- *
-*/
-struct ListNode {
-    // value stores in List node
-    int val;
-    
-    // pointer to next List node
-    struct ListNode *next;
-
-};
-
-/**
- * printNode: - 
+ * Leetcode #20 
+ * isValid: - 
  * @value
  *  
  * return:
  *
- * to create or new node
+ * Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', 
+ * determine if the input string is valid.
  * 
  */
-void printNode(struct ListNode* root);
+bool isValid(char * s);
+void tb_isValid();
 
 /**
- * newListNode: - (or newNode)
+ * Leetcode #26
+ * removeDuplicates: 
  * @value
  *  
  * return:
  *
- * to create or new node
+ * Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', 
+ * determine if the input string is valid.
  * 
  */
-struct ListNode* newListNode(int value);
-void tb_newListNode();
+int removeDuplicates(int* nums, int numsSize);
+void tb_removeDuplicates();
 
 /**
- * Leetcode #2
- * addTwoNumbers:
+ * Leetcode #27
+ * removeDuplicates: 
  * @value
  *  
  * return:
  *
- * to create or new node
+ * Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', 
+ * determine if the input string is valid.
  * 
  */
-struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2);
-void tb_addTwoNumbers();
-
-/**
- * Leetcode #21
- * mergeTwoLists:
- * @value
- *  
- * return:
- *
- * to create or new node
- * 
- */
-struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2);
-void tb_mergeTwoLists();
+int removeElement(int* nums, int numsSize, int val);
+void tb_removeElement();
 
 /***********************************************************************/
 // The tbs for each funs and so on...
 /***********************************************************************/
 
-/* testbench for newListNode */
-void tb_newListNode()
+/* testbench for tb_isValid */
+void tb_isValid()
 {
-    printf("@frk: test for creat_node...\n");
+    printf("@frk: test for isValid...\n");
 
-    struct ListNode* head_a = NULL; 
-     
-    head_a             = newListNode(1); 
-    head_a->next       = newListNode(5); 
-    head_a->next->next = newListNode(6); 
-
-    printNode(head_a); 
+    printf("\n %d",isValid("{{{{}}}}"));
 
 }
 
-/* testbench for addTwoNumbers */
-void tb_addTwoNumbers()
+/* testbench for tb_isValid */
+void tb_removeDuplicates()
 {
-    printf("@frk: test for addTwoNumbers...\n");
+    printf("@frk: test for removeDuplicates...\n");
 
-    struct ListNode* head_a = NULL; 
-    struct ListNode* head_b = NULL; 
-    struct ListNode* head_j = NULL; 
-     
-    head_a             = newListNode(1); 
-    head_a->next       = newListNode(5); 
-    head_a->next->next = newListNode(6); 
+    int arr1[10] = {1,1,2,2,3,4,4,4,4,4};    
+    int arr2[10] = {1,2,3,4,5,5,5,5,5,5};
+    int arr3[10] = {1,1,1,1,1,1,1,1,1,1};
 
-    head_b                               = newListNode(2); 
-    head_b->next                         = newListNode(3); 
-
-    head_j = addTwoNumbers(head_a, head_b); 
-
-    printNode(head_a);
-    printf("\n ----------");
-    printNode(head_b); 
-    printf("\n ----------");
-    printNode(head_j); 
+    removeDuplicates(arr1,10);
+    
+    printf("\n--------------------------");
+    removeDuplicates(arr2,10);
+    
+    printf("\n--------------------------");
+    removeDuplicates(arr3,10);
 
 }
 
-/* testbench for mergeTwoLists */
-void tb_mergeTwoLists()
+/* testbench for tb_isValid */
+void tb_removeElement()
 {
-    printf("@frk: test for mergeTwoLists...\n");
+    printf("@frk: test for removeElement...\n");
+    
+    int array[7]={1,2,3,4,5,5,5};
+    int numsSize = 7;
+    int val = 5;
 
-    struct ListNode* head_a = NULL; 
-    struct ListNode* head_b = NULL; 
-    struct ListNode* head_j = NULL; 
-     
-    head_a             = newListNode(1); 
-    head_a->next       = newListNode(5); 
-    head_a->next->next = newListNode(6); 
-
-    head_b                               = newListNode(2); 
-    head_b->next                         = newListNode(3); 
-
-    head_j = mergeTwoLists(head_a, head_b); 
-
-    printNode(head_a);
-    printf("\n ----------");
-    printNode(head_b); 
-    printf("\n ----------");
-    printNode(head_j); 
+    removeElement(array,numsSize,val);
 
 }
 
@@ -161,13 +116,13 @@ int main()
     printf("@frk: start testing ...................................");
     printf("\n---------------------------------------------------\n");
 
-    tb_newListNode();
+    tb_isValid();
     printf("\n---------------------------------------------------\n");
 
-    tb_addTwoNumbers();
+    tb_removeDuplicates();
     printf("\n---------------------------------------------------\n");
 
-    tb_mergeTwoLists();
+    tb_removeElement();
     printf("\n---------------------------------------------------\n");
 
     printf("\nPASS-TEST\n");
@@ -179,115 +134,115 @@ int main()
 /***********************************************************************/
 
 /* */
-void printNode(struct ListNode* root)
+bool isValid(char * s)
 {
-    // loop continues untill list == NULL
-    while(root != NULL)
-    {  
-        // print value of current node
-        printf("\nfrk-printNode: List: %d", root->val);  
-        
-        // move to next node 
-        root = root->next;
+    int length = strlen(s);
 
-    }  
+    // Stack to solve the baracket close in order
+    int top = -1;
+    char stack[length];
+
+    // printf("\n@frk-dbg: length=%d", length);
+    for (int i=0; i<length; i++){
+        if((s[i]=='{')||(s[i]=='[')||(s[i]=='('))
+        {
+            stack[++top]=s[i];
+        } else 
+        {
+            if (s[i]==')')
+            {
+                if ((top == -1)||(stack[top]!='(')) {
+                    return false;
+                } else {
+                    top--;
+                }
+            } else if (s[i]==']')
+            {
+                if ((top == -1)||(stack[top]!='[')) {
+                    return false;
+                } else {
+                    top--;
+                }
+            } else if (s[i]=='}')
+            {
+                if ((top == -1)||(stack[top]!='{')) {
+                    return false;
+                } else {
+                    top--;
+                }
+            }
+        }
+    }
+    return top==-1;
 }
 
 /* */
-struct ListNode* newListNode(int value)
-{
-    // allocate memory for a new ListNode
-    struct ListNode* result = (struct ListNode*)malloc(sizeof(struct ListNode));  
-    
-    // set the value of ListNode to given value
-    result->val  = value;  
-    
-    // set the next pointer of ListNode to NULL
-    result->next = NULL;  
-    
-    return result;  
-}
+int removeDuplicates(int* nums, int numsSize){
+    int stack[numsSize];
+    int top = -1;
+    // printf("\n@frk-dbg: nums[0]=%d",nums[0]);
+    stack[++top] = nums[0];
 
-/* */
-struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
-{
-    // create a new ListNode to store the result, initialized with 0
-    struct ListNode *head_result = newListNode(0);
-    
-    // create a pointer to the current position in the result list
-    struct ListNode* head_cur = head_result; 
-    
-    //
-    int sum;
-    int rem = 0; 
-    int i = 0;
-    
-    // Iterate until both input lists and the remainder are exhausted
-    while ( (l1 != NULL) || (l2 != NULL) || (rem != 0)) 
+    // for (int i=0; i<numsSize; i++)
+    // {
+    //     printf("\n@frk-dbg: nums[%d]=%d",i,nums[i]);
+    // }
+    int k;
+    for (int i=1; i<numsSize; i++)
     {
-        // Calculate the sum of the corresponding nodes and the remainder
-        sum = rem + ((l1 == NULL) ? 0 : (l1->val)) + ((l2 == NULL) ? 0 : (l2->val)); 
-        rem = sum/10; 
-        sum %= 10; 
-        
-        // Create a new ListNode for the current digit sum and attach it to the result list
-        head_cur->next = newListNode(sum); 
-        
-        // Move the current position pointer to the newly created ListNode
-        head_cur = head_cur->next; 
-        
-        // Move to the next nodes in the input lists, or set to 0 if reached the end
-        l1 = (l1 == NULL) ? 0 : (l1->next); 
-        l2 = (l2 == NULL) ? 0 : (l2->next); 
-        
-    }  
-    
-    // Return the result list, skipping the initial 0 node
-    return head_result->next; 
+        // printf("\n@frk-dbg: i=%d",i);
+        if (nums[i] != stack[top]){
+            stack[++top]=nums[i];
+        }
+    }
+    // printf("\n@frk-dbg: top=%d",top);
+    for (int i=0; i<numsSize; i++)
+    {
+        // printf("\n@frk-dbg: stack[%d]=%d",i,stack[i]);
+        nums[i]=stack[i];
+    }    
+    return top+1;
 }
 
 /* */
-struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2)
-{
-    // Create a new ListNode to store the merged list, initialized with 0
-    struct ListNode* head_result = newListNode(0); 
-    
-    // Create a pointer to the current position in the merged list
-    struct ListNode* head_cur    = head_result;  
-    
-    int i = 0; 
+int removeElement(int* nums, int numsSize, int val){
+    int result = 0;
 
-    // Iterate until either of the input lists is exhausted
-    while( (list1!=NULL) && (list2!=NULL) ){ 
-        
-        // Check which value is smaller and add it to the merged list
-        if (list1->val < list2->val)
-        { 
-            // Create a new ListNode with the value from list1 and attach it to the merged list
-            head_cur->next = newListNode(list1->val); 
-            
-            // Move to the next node in list1
-            list1 = list1->next; 
+    if (numsSize == 0){
+        nums = NULL;
+        result = 0;
+        return result;
+    }
 
-        } else { 
-            // Create a new ListNode with the value from list2 and attach it to the merged list
-            head_cur->next = newListNode(list2->val); 
-            
-            // Move to the next node in list2
-            list2 = list2->next; 
-        } 
+    // // /*Test array only*/
+    // for(int i=0; i<numsSize; i++){
+    //     printf("\n@frk-dbg: Array[%d]=[%d]",i,nums[i]);
+    // }
 
-        // Increment the position counter and move the current position pointer
-        i++; 
-        head_cur = head_cur->next; 
-    }; 
+    /*Stack to save output values*/
+    int top = -1;
+    int stack[numsSize];
+    // printf("\n--------------------------------------");    
 
-    // Attach the remaining nodes from either list1 or list2 to the merged list
-    head_cur->next = (list1 == NULL) ? (list2) : (list1);     
+    for (int j = 0; j < numsSize; j++ ){
+        if (nums[j] != val){
+            // printf("\n@frk-dbg: nums[%d]=[%d]",j,nums[j]);
+            stack[++top] = nums[j];
+            // printf("\n@frk-dbg: stack[%d]=[%d]",top,stack[top]);
+        }
+    }
+    result = top + 1;
+    //nums = stack;
+    // printf("\n--------------------------------------");    
 
-    // Return the merged list, skipping the initial 0 node
-    return head_result->next; 
+    for(int i=0; i<numsSize; i++){
+        nums[i] = (i <= top) ? stack[i] : 0;
+        // printf("\n@frk-dbg: num[%d]=[%d]",i,nums[i]);
+    }
+    // printf("\n--------------------------------------");    
 
+    /*Result stores here*/
+    // printf("\n@frk-dbg: result=[%d]", result);
+    return result;
 }
-
 /***********************************************************************/
