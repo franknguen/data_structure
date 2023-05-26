@@ -77,6 +77,19 @@ void tb_addTwoNumbers();
 struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2);
 void tb_mergeTwoLists();
 
+/**
+ * Leetcode #26
+ * deleteDuplicates:
+ * @value
+ *  
+ * return:
+ *
+ * to create or new node
+ * 
+ */
+struct ListNode* deleteDuplicates(struct ListNode* head);
+void tb_deleteDuplicates();
+
 /***********************************************************************/
 // The tbs for each funs and so on...
 /***********************************************************************/
@@ -148,6 +161,28 @@ void tb_mergeTwoLists()
 
 }
 
+void tb_deleteDuplicates()
+{
+    printf("@frk: test for deleteDuplicates...\n");
+
+    struct ListNode* head_a = NULL; 
+    struct ListNode* head_b = NULL; 
+     
+    head_a                   = newListNode(1); 
+    head_a->next             = newListNode(5); 
+    head_a->next->next       = newListNode(5);
+    head_a->next->next->next = newListNode(6); 
+
+    printNode(head_a);
+    printf("\n ----------");
+
+    head_b = deleteDuplicates(head_a);
+
+    printNode(head_b); 
+    printf("\n ----------");
+
+}
+
 /***********************************************************************/
 /**
  * main - main program, test case
@@ -168,6 +203,9 @@ int main()
     printf("\n---------------------------------------------------\n");
 
     tb_mergeTwoLists();
+    printf("\n---------------------------------------------------\n");
+
+    tb_deleteDuplicates();
     printf("\n---------------------------------------------------\n");
 
     printf("\nPASS-TEST\n");
@@ -289,5 +327,38 @@ struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2)
     return head_result->next; 
 
 }
+
+/**/
+struct ListNode* deleteDuplicates(struct ListNode* head)
+{
+    /* check wheather input list is empty or only one node */
+    if( (head == NULL) || (head->next) == NULL )
+    {
+        return head;
+    }
+
+    /* initial a pointer to track current node */
+    struct ListNode* cur = head;
+
+    /* travel the linked list */
+    while( cur->next != NULL)
+    {
+        /**/
+        if(cur->val == cur->next->val)
+        {
+            /**/
+            struct ListNode* tem = cur->next;
+            cur->next = tem->next;
+            free(tem);
+        } else {
+            /**/
+            cur = cur->next;
+        }
+    }
+
+    /**/
+    return head;
+}
+
 
 /***********************************************************************/

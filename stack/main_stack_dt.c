@@ -142,107 +142,126 @@ bool isValid(char * s)
     int top = -1;
     char stack[length];
 
-    // printf("\n@frk-dbg: length=%d", length);
-    for (int i=0; i<length; i++){
-        if((s[i]=='{')||(s[i]=='[')||(s[i]=='('))
+    // The function iterates through each character in the string.
+    for (int i=0; i<length; i++)
+    {
+        // If an opening bracket('{', '[', or '('), push onto the stack.
+        if( (s[i]=='{') || (s[i]=='[') || (s[i]=='(') )
         {
             stack[++top]=s[i];
         } else 
-        {
-            if (s[i]==')')
             {
-                if ((top == -1)||(stack[top]!='(')) {
-                    return false;
-                } else {
-                    top--;
-                }
-            } else if (s[i]==']')
-            {
-                if ((top == -1)||(stack[top]!='[')) {
-                    return false;
-                } else {
-                    top--;
-                }
-            } else if (s[i]=='}')
-            {
-                if ((top == -1)||(stack[top]!='{')) {
-                    return false;
-                } else {
-                    top--;
+                /** If a closing bracket is encountered, the function 
+                  * checks whether the stack is empty or if the top of 
+                  * the stack contains the corresponding opening bracket. 
+                 */ 
+                if ( s[i]==')' )
+                {
+                    /** If the stack is empty or the brackets do not match, 
+                      * the function immediately returns false.
+                     */ 
+                    if ( (top == -1) || (stack[top]!='(') ) 
+                    {
+                        return false;
+                    } 
+                    /* If the brackets match, the top of the stack is popped. */
+                    else {
+                        top--;
+                    }
+                } 
+                //
+                else if (s[i]==']')
+                {
+                    //
+                    if ( (top == -1) || (stack[top]!='[') ) 
+                    {
+                        return false;
+                    } else {
+                        top--;
+                    }
+                } 
+                //
+                else if (s[i]=='}')
+                {
+                    //
+                    if ( (top==-1) || (stack[top]!='{') ) 
+                    {
+                        return false;
+                    } else {
+                        top--;
+                    }
                 }
             }
-        }
     }
+    /**
+      * After iterating through all characters, the function checks whether the stack is empty.
+      * If it is empty, all brackets were properly closed, and the function returns true.
+      * Otherwise, there are unclosed brackets, and the function returns false.
+     */
     return top==-1;
 }
 
 /* */
-int removeDuplicates(int* nums, int numsSize){
-    int stack[numsSize];
+int removeDuplicates(int* nums, int numsSize)
+{
+    /*Stack to save output values*/
     int top = -1;
-    // printf("\n@frk-dbg: nums[0]=%d",nums[0]);
+    int stack[numsSize];
     stack[++top] = nums[0];
 
-    // for (int i=0; i<numsSize; i++)
-    // {
-    //     printf("\n@frk-dbg: nums[%d]=%d",i,nums[i]);
-    // }
-    int k;
+    /* iterating through all array */
     for (int i=1; i<numsSize; i++)
     {
-        // printf("\n@frk-dbg: i=%d",i);
-        if (nums[i] != stack[top]){
+        /* if the number is different to stack top */ 
+        if (nums[i] != stack[top])
+        {
+            /* push it into stack */
             stack[++top]=nums[i];
         }
     }
-    // printf("\n@frk-dbg: top=%d",top);
+
     for (int i=0; i<numsSize; i++)
     {
-        // printf("\n@frk-dbg: stack[%d]=%d",i,stack[i]);
+        /* assign nums to stack when all iteration finished */
         nums[i]=stack[i];
-    }    
+    }
+    
+    /* The length of the modified array is equal to the index of the top of the stack, plus one. */
     return top+1;
 }
 
 /* */
-int removeElement(int* nums, int numsSize, int val){
+int removeElement(int* nums, int numsSize, int val)
+{
     int result = 0;
 
-    if (numsSize == 0){
+    if (numsSize == 0)
+    {
         nums = NULL;
         result = 0;
         return result;
     }
 
-    // // /*Test array only*/
-    // for(int i=0; i<numsSize; i++){
-    //     printf("\n@frk-dbg: Array[%d]=[%d]",i,nums[i]);
-    // }
-
     /*Stack to save output values*/
     int top = -1;
     int stack[numsSize];
-    // printf("\n--------------------------------------");    
 
-    for (int j = 0; j < numsSize; j++ ){
-        if (nums[j] != val){
-            // printf("\n@frk-dbg: nums[%d]=[%d]",j,nums[j]);
+    /* iterating through all array */
+    for (int j = 0; j < numsSize; j++ )
+    {
+        if (nums[j] != val)
+        {
             stack[++top] = nums[j];
-            // printf("\n@frk-dbg: stack[%d]=[%d]",top,stack[top]);
         }
     }
     result = top + 1;
-    //nums = stack;
-    // printf("\n--------------------------------------");    
 
-    for(int i=0; i<numsSize; i++){
+    for(int i=0; i<numsSize; i++)
+    {
         nums[i] = (i <= top) ? stack[i] : 0;
-        // printf("\n@frk-dbg: num[%d]=[%d]",i,nums[i]);
     }
-    // printf("\n--------------------------------------");    
 
-    /*Result stores here*/
-    // printf("\n@frk-dbg: result=[%d]", result);
+    /*  */
     return result;
 }
 /***********************************************************************/
