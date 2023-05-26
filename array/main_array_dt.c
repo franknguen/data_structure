@@ -1,7 +1,7 @@
 /***********************************************************************/
 /**
     LeetCode 
-    Purpose: Linked list data structure
+    Purpose: Array data structure
     @author: Frank Nguen
     @date:   0x-05-2023
 */
@@ -10,166 +10,133 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <limits.h>
+#include <string.h>
 
 /***********************************************************************/
 // funs declerations
 /***********************************************************************/
 
 /**
- * Definition for a list node.
+ * twoSum: Leetcode #1
  *
-*/
-struct ListNode {
-    // value stores in List node
-    int val;
-    
-    // pointer to next List node
-    struct ListNode *next;
-
-};
-
-/**
- * printNode: - 
- * @value
- *  
- * return:
+ * @nums
+ * 
+ * @numsSize
+ * 
+ * @target 
+ * 
+ * @returnsize
  *
- * to create or new node
+ * given an array of integers nums and an integer target. Return indices
+ * of the two numbers such that they add up to target.
  * 
  */
-void printNode(struct ListNode* root);
+int *twoSum(int* nums, int numSize, int target, int* returnSize);
+void tb_twoSum();
 
 /**
- * newListNode: - (or newNode)
- * @value
- *  
- * return:
+ * isPalindrome: Leetcode #2
  *
- * to create or new node
+ * @x
+ *
+ * given an integer x, return true if x is palindrome, false if otherwise
+ * 121: true; -121: false
  * 
  */
-struct ListNode* newListNode(int value);
-void tb_newListNode();
+bool isPalindrome(int x);
+void tb_isPalindrome();
 
 /**
- * Leetcode #2
- * addTwoNumbers:
- * @value
- *  
- * return:
+ * romanToInt: Leetcode #13
  *
- * to create or new node
+ * @x
+ *
+ * Roman to integer
  * 
  */
-struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2);
-void tb_addTwoNumbers();
-
-/**
- * Leetcode #21
- * mergeTwoLists:
- * @value
- *  
- * return:
- *
- * to create or new node
- * 
- */
-struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2);
-void tb_mergeTwoLists();
+int char_to_int(char s);
+int romanToInt(char* s);
+void tb_romanToInt();
 
 /***********************************************************************/
 // The tbs for each funs and so on...
 /***********************************************************************/
 
 /* testbench for newListNode */
-void tb_newListNode()
+void tb_twoSum()
 {
-    printf("@frk: test for creat_node...\n");
+	printf("@frk: test for two_Sum...\n");
+	
+	/**/
+	int nums[4] = {2, 7, 11, 15};
+	int target  = 9;
+	int returnSize;
 
-    struct ListNode* head_a = NULL; 
-     
-    head_a             = newListNode(1); 
-    head_a->next       = newListNode(5); 
-    head_a->next->next = newListNode(6); 
-
-    printNode(head_a); 
+	/**/
+	int* ret = twoSum(nums, 4, target, &returnSize);
+	
+	/**/
+	printf("\n results: %d, %d", ret[0], ret[1]);
 
 }
 
-/* testbench for addTwoNumbers */
-void tb_addTwoNumbers()
+/* testbench for newListNode */
+void tb_isPalindrom()
 {
-    printf("@frk: test for addTwoNumbers...\n");
+	printf("@frk: test for two_Sum...\n");
 
-    struct ListNode* head_a = NULL; 
-    struct ListNode* head_b = NULL; 
-    struct ListNode* head_j = NULL; 
-     
-    head_a             = newListNode(1); 
-    head_a->next       = newListNode(5); 
-    head_a->next->next = newListNode(6); 
-
-    head_b                               = newListNode(2); 
-    head_b->next                         = newListNode(3); 
-
-    head_j = addTwoNumbers(head_a, head_b); 
-
-    printNode(head_a);
-    printf("\n ----------");
-    printNode(head_b); 
-    printf("\n ----------");
-    printNode(head_j); 
-
+	isPalindrome(121);
+        isPalindrome(-121);
+	isPalindrome(122);
+	
 }
 
-/* testbench for mergeTwoLists */
-void tb_mergeTwoLists()
-{
-    printf("@frk: test for mergeTwoLists...\n");
+/*  */
+void tf_char_to_int(void)
+{ 
+    printf("\n@frk_debug [%d]", char_to_int('I')); 
+    printf("\n@frk_debug [%d]", char_to_int('V')); 
+    printf("\n@frk_debug [%d]", char_to_int('X')); 
+    printf("\n@frk_debug [%d]", char_to_int('L')); 
+    printf("\n@frk_debug [%d]", char_to_int('C')); 
+    printf("\n@frk_debug [%d]", char_to_int('D')); 
+    printf("\n@frk_debug [%d]", char_to_int('M')); 
+    printf("\n@frk_debug [%d]", char_to_int('a')); 
+} 
 
-    struct ListNode* head_a = NULL; 
-    struct ListNode* head_b = NULL; 
-    struct ListNode* head_j = NULL; 
-     
-    head_a             = newListNode(1); 
-    head_a->next       = newListNode(5); 
-    head_a->next->next = newListNode(6); 
+void tb_romanToInt() 
+{ 
+    /* test for char to int */
+    tf_char_to_int(); 
 
-    head_b                               = newListNode(2); 
-    head_b->next                         = newListNode(3); 
+    /* */
+    printf("\n result = %d", romanToInt("III")); 
+    printf("\n result = %d", romanToInt("LVIII")); 
+    printf("\n result = %d", romanToInt("MCMXCIV")); 
 
-    head_j = mergeTwoLists(head_a, head_b); 
-
-    printNode(head_a);
-    printf("\n ----------");
-    printNode(head_b); 
-    printf("\n ----------");
-    printNode(head_j); 
-
-}
+} 
 
 /***********************************************************************/
 /**
  * main - main program, test case
- * problems: convert a string into zigzag string
  */
 /***********************************************************************/
 
 int main()
 {
 
-    printf("@frk: start testing ...................................");
+    printf("@frk: start testing ...............................");
     printf("\n---------------------------------------------------\n");
 
-    tb_newListNode();
+    tb_twoSum();
     printf("\n---------------------------------------------------\n");
 
-    tb_addTwoNumbers();
+    tb_isPalindrom();
     printf("\n---------------------------------------------------\n");
-
-    tb_mergeTwoLists();
+ 
+    tb_romanToInt();
     printf("\n---------------------------------------------------\n");
-
+    
     printf("\nPASS-TEST\n");
     return 0;
 }
@@ -179,115 +146,93 @@ int main()
 /***********************************************************************/
 
 /* */
-void printNode(struct ListNode* root)
+int *twoSum(int* nums, int numSize, int target, int* returnSize)
 {
-    // loop continues untill list == NULL
-    while(root != NULL)
-    {  
-        // print value of current node
-        printf("\nfrk-printNode: List: %d", root->val);  
-        
-        // move to next node 
-        root = root->next;
+	/* set the returnSize to 2*/
+	*returnSize = 2;
 
-    }  
+	/* allocate memory for result array*/
+	int* ret = malloc((*returnSize)*sizeof(int));
+
+	/* iterate over each pair of number in arrays*/
+	for(int i=0; i<numSize; i++)
+	{
+		for(int j=i+1; j<numSize; j++)
+		{
+			/* check if sum of two numbers equal to target */
+			if( *(nums+i) + *(nums+j) == target) 
+			{
+				/* store indices into ret array */
+				*ret     = i;
+				*(ret+1) = j;
+
+				/* return */
+				return ret;	
+			}		
+		}
+	}
+	return ret;
 }
 
 /* */
-struct ListNode* newListNode(int value)
+bool isPalindrome(int x)
 {
-    // allocate memory for a new ListNode
-    struct ListNode* result = (struct ListNode*)malloc(sizeof(struct ListNode));  
-    
-    // set the value of ListNode to given value
-    result->val  = value;  
-    
-    // set the next pointer of ListNode to NULL
-    result->next = NULL;  
-    
-    return result;  
+	/* check if input is negative */
+	if ( x<0 )
+		return false;
+	
+	/* store the original number, reverse number */
+	int original        = x;        //
+	//int reverse    = 0;           // 
+	long long reverse   = 0;        // to fix run time error
+
+	/* reverse the digits of number */
+	while( x != 0 )
+	{
+		/* build reverse number */
+		reverse = reverse*10 + ( x%10 );
+		
+		/* remove the lastest digit from original number */
+		x/=10;
+	}
+
+	/**/
+	return original == reverse;
 }
 
 /* */
-struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
-{
-    // create a new ListNode to store the result, initialized with 0
-    struct ListNode *head_result = newListNode(0);
+int char_to_int(char s)
+{ 
+    /* return value */
+    int value; 
+
+    /* assign coresponding value */
+    value = (s == 'I') ? 1    : 
+            (s == 'V') ? 5    : 
+            (s == 'X') ? 10   : 
+            (s == 'L') ? 50   : 
+            (s == 'C') ? 100  : 
+            (s == 'D') ? 500  : 
+            (s == 'M') ? 1000 : 0 ; 
     
-    // create a pointer to the current position in the result list
-    struct ListNode* head_cur = head_result; 
-    
-    //
-    int sum;
-    int rem = 0; 
-    int i = 0;
-    
-    // Iterate until both input lists and the remainder are exhausted
-    while ( (l1 != NULL) || (l2 != NULL) || (rem != 0)) 
-    {
-        // Calculate the sum of the corresponding nodes and the remainder
-        sum = rem + ((l1 == NULL) ? 0 : (l1->val)) + ((l2 == NULL) ? 0 : (l2->val)); 
-        rem = sum/10; 
-        sum %= 10; 
-        
-        // Create a new ListNode for the current digit sum and attach it to the result list
-        head_cur->next = newListNode(sum); 
-        
-        // Move the current position pointer to the newly created ListNode
-        head_cur = head_cur->next; 
-        
-        // Move to the next nodes in the input lists, or set to 0 if reached the end
-        l1 = (l1 == NULL) ? 0 : (l1->next); 
-        l2 = (l2 == NULL) ? 0 : (l2->next); 
-        
-    }  
-    
-    // Return the result list, skipping the initial 0 node
-    return head_result->next; 
-}
+    /* return it */
+    return value; 
+} 
 
 /* */
-struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2)
-{
-    // Create a new ListNode to store the merged list, initialized with 0
-    struct ListNode* head_result = newListNode(0); 
+int romanToInt(char * s)
+{ 
+    /* */
+    int length = strlen(s); // length of the string 
+    int result = 0;         // result variable   
     
-    // Create a pointer to the current position in the merged list
-    struct ListNode* head_cur    = head_result;  
-    
-    int i = 0; 
-
-    // Iterate until either of the input lists is exhausted
-    while( (list1!=NULL) && (list2!=NULL) ){ 
-        
-        // Check which value is smaller and add it to the merged list
-        if (list1->val < list2->val)
-        { 
-            // Create a new ListNode with the value from list1 and attach it to the merged list
-            head_cur->next = newListNode(list1->val); 
-            
-            // Move to the next node in list1
-            list1 = list1->next; 
-
-        } else { 
-            // Create a new ListNode with the value from list2 and attach it to the merged list
-            head_cur->next = newListNode(list2->val); 
-            
-            // Move to the next node in list2
-            list2 = list2->next; 
-        } 
-
-        // Increment the position counter and move the current position pointer
-        i++; 
-        head_cur = head_cur->next; 
-    }; 
-
-    // Attach the remaining nodes from either list1 or list2 to the merged list
-    head_cur->next = (list1 == NULL) ? (list2) : (list1);     
-
-    // Return the merged list, skipping the initial 0 node
-    return head_result->next; 
-
-}
+    /* interate through the Roman numeral string */
+    for (register int i=0; i<length; i=(char_to_int(s[i]) < char_to_int(s[i+1])) ? (i+2) : (i+1) ) 
+    { 
+        /* If the current character represents a smaller value than the next character, subtract it from the result */	 
+        result = ( char_to_int(s[i]) < char_to_int(s[i+1]) ) ? (result + char_to_int(s[i+1]) - char_to_int(s[i])) : (result + char_to_int(s[i]));  
+    } 
+    return result; 
+} 
 
 /***********************************************************************/
