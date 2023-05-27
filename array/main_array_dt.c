@@ -238,10 +238,23 @@ void tb_generate()
 {
     printf("@frk: test for generate...\n");
     
-    int numRows    = 5;
-    int* returnSize;
-    int** returnColumnSizes;
-    int** ret =  generate(numRows, returnSize, returnColumnSizes);
+    int   numRows    = 5;
+    int   returnSize;
+    int*  returnColumnSizes;
+    
+    /* */
+    int** triangle =  generate(numRows, &returnSize, &returnColumnSizes);
+
+    /* */
+    for(int i=0; i<returnSize; i++){
+    	for(int j=0; j<returnColumnSizes[i]; j++){
+	    printf("%d", triangle[i][j]);
+	}
+	printf("\n");
+    }
+
+    /* */
+    free(triangle);
 }
 
 /***********************************************************************/
@@ -562,3 +575,4 @@ int** generate(int numRows, int* returnSize, int** returnColumnSizes)
 }
 
 /***********************************************************************/
+
