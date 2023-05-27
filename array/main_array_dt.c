@@ -58,11 +58,75 @@ int char_to_int(char s);
 int romanToInt(char* s);
 void tb_romanToInt();
 
+/**
+ * longestCommonPrefix: Leetcode #14
+ *
+ * @x
+ *
+ * to find the longest common prefix string amongst an array of strings
+ * 
+ */
+char * longestCommonPrefix(char ** strs, int strsSize);
+void tb_longestCommonPrefix();
+
+/**
+ * strStr: Leetcode #28
+ *
+ * @x
+ *
+ * to find the index of the first occurance in a string
+ * 
+ */
+int strStr(char * haystack, char * needle);
+void tb_strStr();
+
+/**
+ * climbStairs -  Leetcode #70
+ * @n:            input number
+ *    
+ * You are climbing a staircase. It takes n steps to reach the top.
+ * Each time you can either climb 1 or 2 steps. 
+ * In how many distinct ways can you climb to the top?
+ *
+ * return:        int 
+ */
+int climbStairs(int n);
+void tb_climbStairs();
+
+/**
+ * getRow: Leetcode #119
+ *
+ * @rowIndex
+ *
+ * @returnSize
+ *
+ * to return the (indexed) row of a Pascal triangle 
+ * 
+ */
+int* getRow(int rowIndex, int* returnSize);
+void tb_getRow();
+
+/**
+ * generate: Leetcode #118
+ *
+ * @numRows
+ *
+ * @returnSize
+ *
+ * @returnColumnSizes
+ *
+ * to return an array of arrays. that is to return the first numRows of Pascal triangle 
+ * 
+ */
+int** generate(int numRows, int* returnSize, int** returnColumnSizes);
+void tb_generate();
+
+
 /***********************************************************************/
 // The tbs for each funs and so on...
 /***********************************************************************/
 
-/* testbench for newListNode */
+/* testbench for twoSum */
 void tb_twoSum()
 {
 	printf("@frk: test for two_Sum...\n");
@@ -80,10 +144,10 @@ void tb_twoSum()
 
 }
 
-/* testbench for newListNode */
+/* testbench for isPalindrom */
 void tb_isPalindrom()
 {
-	printf("@frk: test for two_Sum...\n");
+	printf("@frk: test for isPalindrom...\n");
 
 	isPalindrome(121);
         isPalindrome(-121);
@@ -104,8 +168,12 @@ void tf_char_to_int(void)
     printf("\n@frk_debug [%d]", char_to_int('a')); 
 } 
 
+/* testbench for romanToInt */
 void tb_romanToInt() 
 { 
+
+    printf("@frk: test for romanToInt...\n");
+    
     /* test for char to int */
     tf_char_to_int(); 
 
@@ -115,6 +183,66 @@ void tb_romanToInt()
     printf("\n result = %d", romanToInt("MCMXCIV")); 
 
 } 
+
+/* testbench for longestCommonPrefix */
+void tb_longestCommonPrefix()
+{
+    printf("@frk: test for longestCommonPrefix...\n");
+    
+    char* test_str1[] = {"flower","flow","flight"};
+    char* test_str2[] = {"aaa","aaafl","aaaxxxx"};
+    char* test_str3[] = {"dog","racecar","car"};
+
+    printf("\n %s",longestCommonPrefix(test_str1,3));
+    printf("\n %s",longestCommonPrefix(test_str2,3));
+    printf("\n %s",longestCommonPrefix(test_str3,3));
+
+}
+
+/* testbench for strStr */
+void tb_strStr()
+{
+    printf("@frk: test for strStr...\n");
+    
+    char *str1 = "leetcode!";
+    char *str2 = "leet";
+
+    printf("\n result=%d",strStr(str1, str2));
+}
+
+/* testbench for climbStairs */
+void tb_climbStairs()
+{
+    printf("@frk: test for climbStair...\n");
+    for(int i=0; i<40; i++) {
+    	printf("\n n=[%d], climbStairs[%d]=[%d]", i, i,  climbStairs(i));
+    } 
+}
+
+/* testbench for getRow */
+void tb_getRow()
+{
+    printf("@frk: test for getRow...\n");
+    int n    = 6;
+    int* len;
+    int* ret = malloc(7*sizeof(int));
+    ret = getRow(n, len);
+    for(int i=0; i<7; i++){
+    	printf("\n *(ret+%d)=[%d]",i,*(ret+i));
+    }
+
+}
+
+/* testbench for generate*/
+void tb_generate()
+{
+    printf("@frk: test for generate...\n");
+    
+    int numRows    = 5;
+    int* returnSize;
+    int** returnColumnSizes;
+    int** ret =  generate(numRows, returnSize, returnColumnSizes);
+}
 
 /***********************************************************************/
 /**
@@ -137,7 +265,19 @@ int main()
     tb_romanToInt();
     printf("\n---------------------------------------------------\n");
     
-    printf("\nPASS-TEST\n");
+    tb_longestCommonPrefix();
+    printf("\n---------------------------------------------------\n");
+
+    tb_strStr();
+    printf("\n---------------------------------------------------\n");
+
+    tb_getRow();
+    printf("\n---------------------------------------------------\n");
+
+    tb_generate();
+    printf("\n---------------------------------------------------\n");
+
+   printf("\nPASS-TEST\n");
     return 0;
 }
 
@@ -234,5 +374,191 @@ int romanToInt(char * s)
     } 
     return result; 
 } 
+
+/* */
+char * longestCommonPrefix(char ** strs, int strsSize)
+{
+    /* handle the empty input */
+    if (strsSize == 0) 
+    {
+        char* result = (char*) malloc(sizeof(char));
+        result[0] = '\0';
+        return result;
+    }
+
+    /* */
+    char* result = (char*) malloc(sizeof(char) * (strlen(strs[0]) + 1));
+    strcpy(result, strs[0]);
+
+    /* */
+    for (int i = 1; i < strsSize; i++) 
+    {
+        int j = 0;
+        while ((result[j] != '\0') && (strs[i][j] != '\0') && (result[j] == strs[i][j])) 
+        {
+            j++;
+        }
+
+        result[j] = '\0';
+       
+        /* handle the empty prefix */	
+	if (j == 0) 
+        {
+            free(result);
+            char* empty_result = (char*) malloc(sizeof(char));
+            empty_result[0] = '\0';
+            return empty_result;
+        }
+    }
+
+    /* */
+    return result;
+}
+
+/* */
+int strStr(char * haystack, char * needle)
+{
+    /* */
+    int result = -1;
+    int leng1  = strlen(haystack);
+    int leng2  = strlen(needle);
+    
+    /* */
+    if (leng1 < leng2)
+        return result;
+
+    /* */
+    for (int i=0; i<= (leng1 - leng2); i++)
+    {
+        int tem=0;
+
+	/* */
+        for (int j=0; j<leng2; j++)
+	{
+            if(haystack[i+j] != needle[j])
+	    {
+                tem = 1;
+            }
+        }
+
+	/* */
+        if (tem == 0)
+	{
+            result = i;
+            break;
+        }
+    }
+    
+    /**/
+    return result;
+}
+
+/* */
+int searchInsert(int* nums, int numsSize, int target)
+{
+    int result=0;
+    
+    /*  */
+    if(nums[0] >= target){
+        return 0;
+    } else if (target == nums[numsSize-1]){
+                return numsSize-1;
+            } else if (target > nums[numsSize-1]){
+                return numsSize;
+            } else {
+                for (int i=1; i<numsSize; i++)
+                {
+                    if ((nums[i] >= target)){
+                        result = i;
+                        break;
+                    }
+                }
+            }
+	/*  */
+	return result;
+}
+
+/*  */
+int climbStairs(int n)
+{
+    int rt[45];
+
+    rt[0] = 1;
+    rt[1] = 2;
+
+    for(int i=0; i<43; i++)
+    {
+        rt[i+2] = rt[i] + rt[i+1];
+    }
+
+    return rt[n-1];
+}
+
+/*  */
+int* getRow(int rowIndex, int* returnSize)
+{
+    /* size of return result */
+    *returnSize = rowIndex+1;
+
+    /* allocate memory for return result */
+    int* ret = malloc((*returnSize)*sizeof(int));
+
+    /* */
+    *(ret)              = 1;
+    *(ret+rowIndex)     = 1;
+    
+    /* */
+    if(rowIndex<2)
+       return ret;
+
+    /* */ 
+    for(int i=2; i<=rowIndex; i++)
+    {
+       /*  */
+       *(ret+i-1)=1;
+       
+       /*  */
+       for(int j=i-1; j>0; j--)
+       {
+	  /*  */
+	  *(ret+j)=*(ret+j)+*(ret+j-1);
+       }
+    }
+    /* */
+    return ret;
+}
+
+/*  */
+int** generate(int numRows, int* returnSize, int** returnColumnSizes)
+{
+    /* */
+    *returnSize = numRows ;
+    
+    /* */
+    *returnColumnSizes = malloc(numRows*sizeof(int*));
+
+    /* */
+    int** ret = malloc(numRows*sizeof(int*));
+
+    /* Pascal triangle */
+    for(int i=0; i<numRows; i++)
+    {
+	/**/
+	(*returnColumnSizes)[i] = i+1;
+
+	/**/
+    	ret[i] = malloc((i+1)*sizeof(int));
+	
+	/**/
+	ret[i][0] = 1;
+	ret[i][i] = 1;
+	for(int j=1; j<i; j++){
+	    ret[i][j]=ret[i-1][j-1] + ret[i-1][j];
+	}
+    }
+
+    /* */
+    return ret;
+}
 
 /***********************************************************************/
